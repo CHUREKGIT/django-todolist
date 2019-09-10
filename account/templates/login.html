@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar fixed-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><button type="button" class="btn btn-warning">Home Page</button></a>
+</nav>
+{% if error %}
+
+
+<div class="container center pt-5">
+        <div class="alert alert-danger text-center" role="alert">
+                {{error}}
+          </div>
+      </div>
+<br><br>
+{% endif %}
+
+<br><br>
+<h1>Login!</h1>
+
+<form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    Username:</br>
+    <input type="text" name="username">
+    <br>
+    Password:</br>
+    <input type="password" name="password">
+    <br><br>
+    <input class="btn btn-primary" type="submit" value="LOGIN!">
+    
+    
+    
+    </form>
+
+
+{% endblock %}

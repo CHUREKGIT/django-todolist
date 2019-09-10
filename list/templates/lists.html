@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand" href="/"><button type="button" class="btn btn-warning">Home Page</button></a>
+    <a class="navbar-brand" href="/create"><button type="button" class="btn btn-warning">Create New list</button></a>
+  </nav>
+<div class="container">
+    <div class="row">
+
+
+      {% if request.user.is_authenticated %}
+        {% for list in lists.all %}
+          {% if request.user == list.user %}
+
+            <div class="col-6 pt-5">
+                <div class="card">
+                    <div class="card-body">
+                      <h2 class="card-title">{{list.name}}</h2>
+                      <h6 class="mb-2 text-muted">Description:</h6>
+                      <p class="card-text">
+
+                        {{ list.body|escape|linebreaks }}
+
+                      </p>
+
+
+
+                      <a href="{% url 'editing' list.id %}" class="card-link">Edit</a>
+
+
+
+                      <form action="{% url 'delete' list.id %}" method='POST'>{% csrf_token %}
+
+                      
+                            <input type="submit" value="Delete" />
+                          
+                        
+                        </form>
+                      <br>
+                      <h6 class="font-italic">Created by: {{list.user}}</h6>
+
+                    </div>
+                  </div>
+            </div>
+
+        {% endif %}
+        {% endfor %}
+
+      {% else %}
+
+        <div class="container center">
+          <div class="alert alert-danger text-center" role="alert">
+              To see lists you have to be login!
+            </div>
+        </div>
+      {% endif %}
+
+</div>
+</div>
+{% endblock  %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% if user.is_authenticated %}
+
+<nav class="navbar fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand" href="javascript:{document.getElementById('logout').submit()}"><button type="button" class="btn btn-warning">Logout</button></a>
+  </nav>
+  <form id="logout" method="POST" action="account/logout">
+        {% csrf_token %}
+      <input type="hidden"/>
+
+    </form>
+<div class="d-flex justify-content-center pt-5">
+
+    <div class="pr-5">
+        
+        <a href="{% url 'create' %}">
+
+            <button type="button" class="btn btn-primary center">Create List</button>
+
+        </a>
+
+    </div>
+  
+
+    <a href="{% url 'lists' %}">
+        
+        <button type="button" class="btn btn-primary center">Go To Lists</button>
+
+    </a>
+
+
+</div>
+
+
+
+{% else %}
+
+<div class="d-flex justify-content-center pt-5">
+
+    <div class="pr-5">
+        
+        <a href="{% url 'login' %}">
+
+            <button type="button" class="btn btn-primary center">Login</button>
+
+        </a>
+
+    </div>
+  
+
+    <a href="{% url 'signup' %}">
+        
+        <button type="button" class="btn btn-primary center">Create Account</button>
+
+    </a>
+
+
+</div>
+
+{% endif %}
+
+{% endblock  %}
